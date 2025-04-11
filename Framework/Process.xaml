@@ -107,11 +107,14 @@
       <AssemblyReference>System.Linq.Async</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1481.6666666666667,1214" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1640,1208" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="str_username" />
       <Variable x:TypeArguments="ss:SecureString" Name="sec_password" />
       <Variable x:TypeArguments="x:String" Name="str_correo" />
+      <Variable x:TypeArguments="x:String" Name="str_nombre" />
+      <Variable x:TypeArguments="x:String" Name="str_edad" />
+      <Variable x:TypeArguments="x:String" Name="AssetEmail" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -121,18 +124,13 @@
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="468,173" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
     <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="468,88" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
-    <Sequence DisplayName="ObtenerDatosTransaccion" sap:VirtualizedContainerService.HintSize="468,425" sap2010:WorkflowViewState.IdRef="Sequence_2">
-      <Sequence.Variables>
-        <Variable x:TypeArguments="x:String" Name="str_nombre" />
-        <Variable x:TypeArguments="x:String" Name="str_edad" />
-        <Variable x:TypeArguments="x:String" Name="AssetEmail" />
-      </Sequence.Variables>
+    <Sequence DisplayName="ObtenerDatosTransaccion" sap:VirtualizedContainerService.HintSize="468,422" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign sap:VirtualizedContainerService.HintSize="434,113" sap2010:WorkflowViewState.IdRef="Assign_1">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[str_nombre]</OutArgument>
         </Assign.To>
@@ -140,7 +138,7 @@
           <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Nombre").toString]</InArgument>
         </Assign.Value>
       </Assign>
-      <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign sap:VirtualizedContainerService.HintSize="434,113" sap2010:WorkflowViewState.IdRef="Assign_2">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[str_edad]</OutArgument>
         </Assign.To>
@@ -148,7 +146,7 @@
           <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Edad").ToString]</InArgument>
         </Assign.Value>
       </Assign>
-      <Assign sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign sap:VirtualizedContainerService.HintSize="434,104" sap2010:WorkflowViewState.IdRef="Assign_3">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[str_correo]</OutArgument>
         </Assign.To>
@@ -157,14 +155,14 @@
         </Assign.Value>
       </Assign>
     </Sequence>
-    <Sequence DisplayName="EnviarMail" sap:VirtualizedContainerService.HintSize="468,433" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <Sequence DisplayName="EnviarMail" sap:VirtualizedContainerService.HintSize="468,430" sap2010:WorkflowViewState.IdRef="Sequence_4">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_Config(&quot;EnvioCorreo&quot;).ToString]" CacheStrategy="None" DisplayName="Get Credential" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="GetRobotCredential_2" Password="[sec_password]" Username="[str_username]" />
-      <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="prueba" DisplayName="Send SMTP Mail Message" Email="[str_username]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="SendMail_3" IsBodyHtml="False" Port="465" SecureConnection="Auto" SecurePassword="[sec_password]" Server="smtp.gmail.com" Subject="prueba" To="[str_correo]">
+      <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Body="prueba" DisplayName="Send SMTP Mail Message" Email="[str_username]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="416,172" sap2010:WorkflowViewState.IdRef="SendMail_3" IsBodyHtml="False" Port="465" SecureConnection="Auto" SecurePassword="[sec_password]" Server="smtp.gmail.com" Subject="prueba" To="[str_correo]">
         <ui:SendMail.Files>
           <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
         </ui:SendMail.Files>
